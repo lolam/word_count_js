@@ -2,7 +2,23 @@
 <html>
 <head>
 <title>WORD COUNT</title>
-  
+
+<style>
+table {
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+
+td{
+	min-width: 100px;
+}
+
+</style>
+
 <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
  
@@ -42,10 +58,28 @@ function count_words(txt) {
 
 
 function display(wc){
-	console.log(wc);
+	var tbl = $("#tbl_results");
+	// clear the table
+	tbl.html('');
+	// get object keys = unique words
+	unique_words = Object.keys(wc);
+	
+	$('<tr><th>Word</th><th>Count</th></tr>').appendTo(tbl); 
 
+	for (i = 0; i < unique_words.length; i ++){
+		var word = unique_words[i];
+		//get the number of occurrences for the word
+		var count = wc[word];
+
+		// create a row
+		var row = $('<tr></tr>').appendTo(tbl); 
+
+		// create a column for word
+		$('<td></td>').text(word).appendTo(row); 
+		// create a column for the counter
+		$('<td></td>').text(count).appendTo(row); 
+	}
 }
-
   
 </script>
 </head>
@@ -61,6 +95,8 @@ function display(wc){
 <br/>
 
 <div id="result">
+	<table id="tbl_results">
+	</table>
 </div>
 
   

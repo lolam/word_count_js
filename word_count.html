@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WORD COUNT</title>
+  
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+ 
+$(document).ready(function() {
+      $("#count").click(function() {
+        var txt = $("#message").val();
+        $("#result").html(txt);
+      });
+});
+  
+</script>
+</head>
+  
+<body>
+  
+<div> 
+	<p>Writte your text to count words!</p>
+	<textarea id="message" name="message" rows="4" cols="50"></textarea> </br>
+	<button id="count">Count</button>
+</div>
+
+
+<br/>
+<div id="result">
+</div>
+
+  
+</body>
+</html>

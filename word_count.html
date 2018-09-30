@@ -25,9 +25,12 @@ td{
 $(document).ready(function() {
     $("#count").click(function() {
         var txt = $("#message").val();
-        var wc = count_words(txt);
-        display(wc);
-        //$("#result").html(txt);
+        if (txt.trim().length == 0){
+        	$("#err_results").html('Please provide a text first!');
+        }else{
+        	var wc = count_words(txt);
+        	display(wc);
+        }
     });
 });
 
@@ -45,11 +48,13 @@ function count_words(txt) {
 	for (i = 0; i < words.length; i ++){
 		var word = words[i];
 		
-		// If word alreay exists, increment the counter
-		if (word in wc){
-			wc[word] += 1;
-		}else{ // otherwise set the counter to 1
-			wc[word] = 1;
+		if (word != ""){
+			// If word alreay exists, increment the counter
+			if (word in wc){
+				wc[word] += 1;
+			}else{ // otherwise set the counter to 1
+				wc[word] = 1;
+			}
 		}
 	}
 
@@ -59,13 +64,15 @@ function count_words(txt) {
 
 function display(wc){
 	var tbl = $("#tbl_results");
-	// clear the table
+	// clear the table and the error message
 	tbl.html('');
+	$("#err_results").html('');
 	// get object keys = unique words
 	unique_words = Object.keys(wc);
 	
 	$('<tr><th>Word</th><th>Count</th></tr>').appendTo(tbl); 
 
+	//unique_words.sort(); 
 	for (i = 0; i < unique_words.length; i ++){
 		var word = unique_words[i];
 		//get the number of occurrences for the word
@@ -88,13 +95,14 @@ function display(wc){
   
 <div> 
 	<p>Writte your text to count words!</p>
-	<textarea id="message" name="message" rows="4" cols="50"></textarea> </br>
+	<textarea id="message" name="message" rows="20" cols="50"></textarea> </br>
 	<button id="count">Count</button>
 </div>
 
 <br/>
 
 <div id="result">
+	<div id="err_results"></div>
 	<table id="tbl_results">
 	</table>
 </div>

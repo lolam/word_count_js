@@ -39,6 +39,7 @@ $(document).ready(function() {
 
         if (txt.trim().length == 0){
         	$("#err_results").html('Please provide a text first!');
+        	$("#tbl_results").html('');
         }else{
         	$("#err_results").html('');
         	worker.postMessage(txt);
@@ -54,7 +55,7 @@ $(document).ready(function() {
   
 <div> 
 	<p>Writte your text to count words!</p>
-	<textarea id="message" name="message" rows="20" cols="50"></textarea> </br>
+	<textarea id="message" name="message" rows="20" cols="150"></textarea> </br>
 	<button id="count">Count</button>
 </div>
 

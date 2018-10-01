@@ -1,5 +1,4 @@
 //counts words withn a given text
-
 self.addEventListener('message', function(e) {
   var txt = e.data;
     
@@ -24,7 +23,25 @@ self.addEventListener('message', function(e) {
     }
   }
 
-  self.postMessage(wc);
+  
+  // get object keys = unique words
+  unique_words = Object.keys(wc);
+  
+  var tbl = "<table>";
+  tbl += '<tr><th>Word</th><th>Count</th></tr>';
+
+  //unique_words.sort(); 
+  for (i = 0; i < unique_words.length; i ++){
+    var word = unique_words[i];
+    //get the number of occurrences for the word
+    var count = wc[word];
+    // create a row with a a column for word and a column for counter
+    tbl += '<tr><td>' + word +' </td><td>' + count + '</td></tr>';
+  }
+
+  tbl += "</table>";
+
+  self.postMessage(tbl);
   
 }, false);
 

@@ -27,8 +27,9 @@ $(document).ready(function() {
 	var worker = new Worker('word_count_worker.js');
 	
 	worker.addEventListener('message', function(e) {
-		var wc = e.data;
-        display(wc);
+		var tbl = e.data;
+		$("#tbl_results").html(tbl);
+        //display(wc);
 		//console.log('Worker said: ', e.data);
 	}, false);
 
@@ -39,39 +40,12 @@ $(document).ready(function() {
         if (txt.trim().length == 0){
         	$("#err_results").html('Please provide a text first!');
         }else{
+        	$("#err_results").html('');
         	worker.postMessage(txt);
         }
     });
 });
 
-
-
-
-function display(wc){
-	var tbl = $("#tbl_results");
-	// clear the table and the error message
-	tbl.html('');
-	$("#err_results").html('');
-	// get object keys = unique words
-	unique_words = Object.keys(wc);
-	
-	$('<tr><th>Word</th><th>Count</th></tr>').appendTo(tbl); 
-
-	//unique_words.sort(); 
-	for (i = 0; i < unique_words.length; i ++){
-		var word = unique_words[i];
-		//get the number of occurrences for the word
-		var count = wc[word];
-
-		// create a row
-		var row = $('<tr></tr>').appendTo(tbl); 
-
-		// create a column for word
-		$('<td></td>').text(word).appendTo(row); 
-		// create a column for the counter
-		$('<td></td>').text(count).appendTo(row); 
-	}
-}
   
 </script>
 </head>
@@ -88,8 +62,7 @@ function display(wc){
 
 <div id="result">
 	<div id="err_results"></div>
-	<table id="tbl_results">
-	</table>
+	<div id="tbl_results"></div>
 </div>
 
   
